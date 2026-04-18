@@ -34,29 +34,16 @@ public class AutoReplant extends JavaPlugin implements Listener {
     public void onEnable() {
         super.onEnable();
 
-        try {
-            configManager = new ConfigManager(this);
-            foliaLib = new FoliaLib(this);
+        configManager = new ConfigManager(this);
+        foliaLib = new FoliaLib(this);
 
-            var command = getCommand("autoreplant");
-            if (command == null) {
-                getLogger().severe("Failed to load 'autoreplant' command from plugin.yml!");
-                setEnabled(false);
-                return;
-            }
+        getCommand("autoreplant").setExecutor(new AutoReplantCommand(this)); // Registering the command executor
+        getServer().getPluginManager().registerEvents(this, this);
 
-            command.setExecutor(new AutoReplantCommand(this)); // Registering the command executor
-            getServer().getPluginManager().registerEvents(this, this);
+        new Metrics(this, 22206);
 
-            new Metrics(this, 22206);
-
-            // Load autoreplant state from data.yml
-            loadPlayerStates();
-        } catch (Exception e) {
-            getLogger().severe("Failed to enable AutoReplant plugin: " + e.getMessage());
-            e.printStackTrace();
-            setEnabled(false);
-        }
+        // Load autoreplant state from data.yml
+        loadPlayerStates();
     }
 
     @Override
