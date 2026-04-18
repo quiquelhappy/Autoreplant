@@ -1,7 +1,5 @@
 package me.niko302.autoreplant.commands;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import me.niko302.autoreplant.AutoReplant;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
@@ -16,7 +14,6 @@ public class AutoReplantCommand implements CommandExecutor {
 
     private final AutoReplant plugin;
 
-    @Getter(AccessLevel.NONE)
     private final Pattern hexColorExtractor = Pattern.compile("#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})");
 
     public AutoReplantCommand(AutoReplant plugin) {

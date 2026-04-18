@@ -1,7 +1,6 @@
 package me.niko302.autoreplant;
 
 import com.tcoded.folialib.FoliaLib;
-import lombok.Getter;
 import me.niko302.autoreplant.commands.AutoReplantCommand;
 import me.niko302.autoreplant.config.ConfigManager;
 import org.bstats.bukkit.Metrics;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
 public class AutoReplant extends JavaPlugin implements Listener {
 
     private final List<UUID> enabledPlayers = new ArrayList<>();
@@ -128,6 +126,10 @@ public class AutoReplant extends JavaPlugin implements Listener {
 
             enabledPlayers.add(UUID.fromString(playerId));
         }
+    }
+
+    public List<UUID> getEnabledPlayers() {
+        return enabledPlayers;
     }
 
 }

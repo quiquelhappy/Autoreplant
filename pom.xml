@@ -97,14 +97,6 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.32</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- FoliaLib -->
         <dependency>
             <groupId>com.tcoded</groupId>
