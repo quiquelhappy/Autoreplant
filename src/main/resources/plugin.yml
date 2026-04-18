@@ -4,6 +4,7 @@ description: Automatically replants crops when harvested with specific tools.
 main: me.niko302.autoreplant.AutoReplant
 api-version: '1.20'
 authors: [ Niko302, BitByLogic ]
+folia-supported: true
 
 commands:
   autoreplant:
