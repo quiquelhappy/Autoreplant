@@ -32,6 +32,8 @@ public class AutoReplant extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        super.onEnable();
+
         configManager = new ConfigManager(this);
 
         getCommand("autoreplant").setExecutor(new AutoReplantCommand(this)); // Registering the command executor
