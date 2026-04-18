@@ -30,11 +30,14 @@ public class AutoReplant extends JavaPlugin implements Listener {
 
     private ConfigManager configManager;
 
+    private FoliaLib foliaLib;
+
     @Override
     public void onEnable() {
         super.onEnable();
 
         configManager = new ConfigManager(this);
+        foliaLib = new FoliaLib(this);
 
         getCommand("autoreplant").setExecutor(new AutoReplantCommand(this)); // Registering the command executor
         getServer().getPluginManager().registerEvents(this, this);
@@ -47,7 +50,8 @@ public class AutoReplant extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-
+        super.onDisable();
+        foliaLib.getScheduler().cancelAllTasks();
     }
 
     private String color(String message) {
@@ -86,7 +90,7 @@ public class AutoReplant extends JavaPlugin implements Listener {
         // Capture the direction of the cocoa block before breaking it
 
         // Schedule the replanting task
-        getServer().getScheduler().runTaskLater(this, () -> {
+        foliaLib.getScheduler().runAtLocationLater(block.getLocation(), () -> {
             block.setType(blockType);
 
             ageable.setAge(0);
