@@ -1,13 +1,10 @@
 package me.niko302.autoreplant;
 
-import com.jeff_media.updatechecker.UpdateCheckSource;
-import com.jeff_media.updatechecker.UpdateChecker;
-import com.jeff_media.updatechecker.UserAgentBuilder;
+import com.tcoded.folialib.FoliaLib;
 import lombok.Getter;
 import me.niko302.autoreplant.commands.AutoReplantCommand;
 import me.niko302.autoreplant.config.ConfigManager;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -18,7 +15,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.permissions.ServerOperator;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -45,35 +41,6 @@ public class AutoReplant extends JavaPlugin implements Listener {
 
         // Load autoreplant state from data.yml
         loadPlayerStates();
-
-        new UpdateChecker(this, UpdateCheckSource.SPIGOT, "117106")
-                .setNotifyRequesters(false)
-                .setNotifyOpsOnJoin(false)
-                .setUserAgent(UserAgentBuilder.getDefaultUserAgent())
-                .checkEveryXHours(12)
-                .onSuccess((commandSenders, latestVersion) -> {
-                    String messagePrefix = "&8[&6Auto Replant&8] ";
-                    String currentVersion = getDescription().getVersion();
-
-                    if (currentVersion.equalsIgnoreCase(latestVersion)) {
-                        String updateMessage = color(messagePrefix + "&aYou are using the latest version of AutoReplant!");
-
-                        Bukkit.getConsoleSender().sendMessage(updateMessage);
-                        Bukkit.getOnlinePlayers().stream().filter(ServerOperator::isOp).forEach(player -> player.sendMessage(updateMessage));
-                        return;
-                    }
-
-                    List<String> updateMessages = List.of(
-                            color(messagePrefix + "&cYour version of AutoReplant is outdated!"),
-                            color(String.format(messagePrefix + "&cYou are using %s, latest is %s!", currentVersion, latestVersion)),
-                            color(messagePrefix + "&cDownload latest here:"),
-                            color("&6https://www.spigotmc.org/resources/autoreplant-1-20.117106/")
-                    );
-
-                    Bukkit.getConsoleSender().sendMessage(updateMessages.toArray(new String[]{}));
-                    Bukkit.getOnlinePlayers().stream().filter(ServerOperator::isOp).forEach(player -> player.sendMessage(updateMessages.toArray(new String[]{})));
-                })
-                .onFail((commandSenders, e) -> {}).checkNow();
     }
 
     @Override
