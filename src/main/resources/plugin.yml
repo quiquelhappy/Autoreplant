@@ -10,7 +10,6 @@ commands:
   autoreplant:
     description: 'Toggle autoreplant feature'
     usage: /autoreplant
-    permission: autoreplant.use
 
 permissions:
   autoreplant.use:
